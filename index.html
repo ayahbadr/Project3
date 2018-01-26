@@ -1,0 +1,155 @@
+<html>
+    <head>
+        <style>
+            body {
+                background-color: #000000;
+                font-family: Arial;
+            }
+
+            .cone {
+                display: none;
+                position: absolute;
+                z-index: 10;
+                width: 0;
+                height: 0;
+                border-left: 100px solid transparent;
+                border-right: 100px solid transparent;
+                border-top: 200px solid red;
+                -moz-border-radius: 50%;
+                -webkit-border-radius: 50%;
+                border-radius: 50%;
+            }
+
+
+            #clock {
+                background-color: grey;
+                border-radius: 500px;
+                color: #FFFFFF;
+                position: relative;
+                width: 500px;
+                height: 500px;
+                border: grey solid 20px;
+            }
+
+            .hour, .hand {
+                text-align: center;
+                font-size: 36pt;
+                position: absolute;
+                height: 100%;
+                width: 100%;
+            }
+
+            .hand div {
+                background-color: #000000;
+                margin: 0 auto;
+            }
+
+            .min div {
+                width: 8px;
+                height: 55%;
+                margin-top: 5%;
+            }
+
+            .hr div {
+                width: 8px;
+                height: 40%;
+                margin-top: 20%;
+                background-color: #000000;
+            }
+
+            .sec div {
+                width: 4px;
+                height: 55%;
+                margin-top: 5%;
+                background-color: #FF0000;
+            }
+
+            .h1 { transform: rotate(30deg); }
+            .h1 div { transform: rotate(-30deg); }
+            .h2 { transform: rotate(60deg); }
+            .h2 div { transform: rotate(-60deg); }
+            .h3 { transform: rotate(90deg); }
+            .h3 div { transform: rotate(-90deg); }
+            .h4 { transform: rotate(120deg); }
+            .h4 div { transform: rotate(-120deg); }
+            .h5 { transform: rotate(150deg); }
+            .h5 div { transform: rotate(-150deg); }
+            .h6 { transform: rotate(180deg); }
+            .h6 div { transform: rotate(-180deg); }
+            .h7 { transform: rotate(210deg); }
+            .h7 div { transform: rotate(-210deg); }
+            .h8 { transform: rotate(240deg); }
+            .h8 div { transform: rotate(-240deg); }
+            .h9 { transform: rotate(270deg); }
+            .h9 div { transform: rotate(-270deg); }
+            .h10 { transform: rotate(300deg); }
+            .h10 div { transform: rotate(-300deg); }
+            .h11 { transform: rotate(330deg); }
+            .h11 div { transform: rotate(-330deg); }
+        </style>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+        <script>
+            var time;
+
+            function changeTime(seconds) {
+                var speed = (seconds*1000)/7200;
+
+                var sec = (360/60)*seconds;
+                var min = (360/60/60)*seconds;
+                var hr = (360/60/60/12)*seconds;
+
+                $(".sec").animate({ borderSpacing: sec }, {
+                    step: function(now, fx) { $(this).css("transform","rotate("+now+"deg)"); },
+                    duration: speed
+                }, "linear");
+
+                $(".min").animate({ borderSpacing: min }, {
+                    step: function(now, fx) { $(this).css("transform","rotate("+now+"deg)"); },
+                    duration: speed
+                }, "linear");
+
+                $(".hr").animate({ borderSpacing: hr }, {
+                    step: function(now, fx) { $(this).css("transform","rotate("+now+"deg)"); },
+                    duration: speed
+                }, "linear");
+            };
+
+            function getTime() {
+                time = prompt("Please enter the time in HH:MM format.");
+                var a = time.split(':');
+
+                var promptTime = (+a[0]) * 60 * 60 + (+a[1]) * 60;
+
+                changeTime(promptTime % (43200*2));
+            }
+        </script>
+    </head>
+
+    <body onload="getTime();">
+        <div id="clock">
+            <div class="hour"><div>12</div></div>
+            <div class="hour h1"><div>1</div></div>
+            <div class="hour h2"><div>2</div></div>
+            <div class="hour h3"><div>3</div></div>
+            <div class="hour h4"><div>4</div></div>
+            <div class="hour h5"><div>5</div></div>
+            <div class="hour h6"><div>6</div></div>
+            <div class="hour h7"><div>7</div></div>
+            <div class="hour h8"><div>8</div></div>
+            <div class="hour h9"><div>9</div></div>
+            <div class="hour h10"><div>10</div></div>
+            <div class="hour h11"><div>11</div></div>
+            <div class="hand hr"><div></div></div>
+            <div class="hand min"><div></div></div>
+            <div class="hand sec"><div></div></div>
+        </div>
+
+        <div class="cone"></div>
+        <div class="cone h1"></div>
+        <div class="cone h2"></div>
+        <div class="cone h3"></div>
+        <div class="cone h4"></div>
+    </body>
+</html>
